@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local ="clr-namespace:SupplyBlockChainApp" 
+             Title="View Transactions"
+             x:Class="SupplyBlockChainApp.QrReader">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid HorizontalOptions="CenterAndExpand" Margin="10,10,10,15" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Orientation="Vertical" Spacing="0" Grid.Row="0" Grid.Column="0" VerticalOptions="CenterAndExpand">
+                    <StackLayout Orientation="Vertical" Spacing="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Label Text="View Transactions" TextColor="#1C405B" FontSize="25"  FontFamily="RobotoSlab-Bold.ttf#Roboto Slab" x:Name="MainLabel"/>
+                    </StackLayout>
+                </StackLayout>
+                <ScrollView Grid.Row="1" Grid.Column="0" IsVisible="False" x:Name="MainScrollView" Padding="10">
+
+                </ScrollView>
+                <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Vertical" Spacing="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" x:Name="MainLayout">
+                    <Button  WidthRequest="150" CornerRadius="25" FontSize="13" Text="Scan QrCode"  BackgroundColor="#1C405B" TextColor="#FFFFFF" FontFamily="RobotoSlab-Bold.ttf#Roboto Slab" x:Name="ScanQrCodeButton" IsEnabled="True" Clicked="ScanQrCodeButton_Clicked"/>
+                </StackLayout>
+                <StackLayout Grid.Row="2" Grid.Column="0" Orientation="Vertical" Spacing="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Button BorderColor="#1C405B" BorderWidth="1"  WidthRequest="100" CornerRadius="25" FontSize="15" Text="&lt;"  BackgroundColor="#FFFFFF" TextColor="#1C405B" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" x:Name="BackButton" IsEnabled="True" Clicked="BackButton_Clicked"/>
+                </StackLayout>
+            </Grid>
+            <ContentView x:Name="LoadingOverlay"
+                 AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                 AbsoluteLayout.LayoutFlags="All"
+                 IsVisible="False"
+                 BackgroundColor="#FFFFFF">
+                <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <ActivityIndicator  Scale="2" Color="#1C405B" IsRunning="True" x:Name="LoadingIndicator"/>
+                    <Label Text="Logging In" TranslationY="25" TextColor="#1C405B" x:Name="LoadingIndicatorText" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" FontSize="20"/>
+                </StackLayout>
+            </ContentView>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
