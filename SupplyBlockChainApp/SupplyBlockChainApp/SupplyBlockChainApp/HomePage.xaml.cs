@@ -24,7 +24,7 @@ namespace SupplyBlockChainApp
 
         private async void CreateTransactionButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new CreateNewProduct(), true);
+            await Navigation.PushAsync(new CreateTransaction(), true);
         }
 
         private async void MineTransactionButton_Clicked(object sender, EventArgs e)

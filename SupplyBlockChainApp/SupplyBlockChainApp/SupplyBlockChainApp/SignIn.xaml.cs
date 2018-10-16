@@ -222,7 +222,7 @@ namespace SupplyBlockChainApp
             LoadingIndicatorText.Text = "Checking Credentials";
             await Task.Run(async () =>
             {
-                string url = "http://test.sudeshkumar.me/UserAccount/LogIn";
+                string url = "http://supplyblockchain.sudeshkumar.me/UserAccount/LogIn";
                 HttpContent q1 = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("userName",Username), new KeyValuePair<string, string>("password", Password) });
                 using (var httpClient = new HttpClient())
                 {

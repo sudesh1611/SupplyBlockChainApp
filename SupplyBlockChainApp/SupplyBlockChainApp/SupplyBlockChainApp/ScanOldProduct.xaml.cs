@@ -51,7 +51,7 @@ namespace SupplyBlockChainApp
 
             await Task.Run(async () =>
             {
-                string url = "http://test.sudeshkumar.me/BlockChain/CreateTransaction";
+                string url = "http://supplyblockchain.sudeshkumar.me/BlockChain/CreateTransaction";
                 HttpContent q1 = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("transaction", JsonConvert.SerializeObject(newTransaction)), new KeyValuePair<string, string>("userName", Application.Current.Properties["UserName"].ToString()), new KeyValuePair<string, string>("password", Application.Current.Properties["Password"].ToString()) });
                 using (var httpClient = new HttpClient())
                 {
@@ -144,7 +144,7 @@ namespace SupplyBlockChainApp
                     MainLayout.IsVisible = false;
                     await Task.Run(async () =>
                     {
-                        string url = "http://test.sudeshkumar.me/BlockChain/CheckTransactionID";
+                        string url = "http://supplyblockchain.sudeshkumar.me/BlockChain/CheckTransactionID";
                         HttpContent q1 = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("ID", Application.Current.Properties["ScannedProductID"].ToString()) });
                         using (var httpClient = new HttpClient())
                         {
