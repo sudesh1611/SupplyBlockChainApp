@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing.Net.Mobile.Forms;
@@ -46,8 +46,31 @@ namespace SupplyBlockChainApp
                 return;
             }
             string ProductID = Application.Current.Properties["ScannedProductID"].ToString();
-
-            Transaction newTransaction = new Transaction(ProductID, ProcessDone, ProcessDoneBy, ProcessCost);
+            Location location = new Location();
+            try
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.Medium);
+                location = await Geolocation.GetLocationAsync(request);
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                await DisplayAlert("Error", "Device doesn't support gps location", "Okay");
+                LoadingOverlay.IsVisible = false;
+                return;
+            }
+            catch (PermissionException pEx)
+            {
+                await DisplayAlert("Error", "Give Location Access to application", "Okay");
+                LoadingOverlay.IsVisible = false;
+                return;
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", "Can't Get Location", "Okay");
+                LoadingOverlay.IsVisible = false;
+                return;
+            }
+            Transaction newTransaction = new Transaction(ProductID, ProcessDone, ProcessDoneBy, location.Latitude.ToString(), location.Longitude.ToString(), ProcessCost);
 
             await Task.Run(async () =>
             {
@@ -160,6 +183,7 @@ namespace SupplyBlockChainApp
                                     {
                                         Device.BeginInvokeOnMainThread(() =>
                                         {
+                                            ProductIDEntry.Text = Application.Current.Properties["ScannedProductID"].ToString();
                                             MainScrollView.IsVisible = true;
                                             LoadingOverlay.IsVisible = false;
                                             return;
@@ -167,16 +191,19 @@ namespace SupplyBlockChainApp
                                     }
                                     else
                                     {
-                                        Label label = new Label()
+                                        Device.BeginInvokeOnMainThread(() =>
                                         {
-                                            Text = "Product Is not present in the system",
-                                            TextColor = Color.Red
-                                        };
-                                        MainLayout.Children.Add(label);
-                                        MainScrollView.IsVisible = false;
-                                        MainLayout.IsVisible = true;
-                                        LoadingOverlay.IsVisible = false;
-                                        return;
+                                            Label label = new Label()
+                                            {
+                                                Text = "Product Is not present in the system",
+                                                TextColor = Color.Red
+                                            };
+                                            MainLayout.Children.Add(label);
+                                            MainScrollView.IsVisible = false;
+                                            MainLayout.IsVisible = true;
+                                            LoadingOverlay.IsVisible = false;
+                                            return;
+                                        });
                                     }
 
 
@@ -187,6 +214,7 @@ namespace SupplyBlockChainApp
                                     {
                                         var Message = "Server Is Down. Try Again After Some Time";
                                         DisplayAlert("Error", Message, "OK");
+                                        MainLayout.IsVisible = true;
                                         LoadingOverlay.IsVisible = false;
                                         return;
                                     });
@@ -199,7 +227,9 @@ namespace SupplyBlockChainApp
                                 {
                                     var Message = "Check Your Internet Connection and Try Again";
                                     DisplayAlert("Error", Message, "OK");
+                                    MainLayout.IsVisible = true;
                                     LoadingOverlay.IsVisible = false;
+                                    Navigation.PopAsync(true);
                                     return;
                                 });
                             }

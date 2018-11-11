@@ -8,17 +8,27 @@ namespace SupplyBlockChainApp
 {
     public class BlockChain
     {
-        private int Difficulty { get; set; } = 5;
+        //Main Chain containing all the mined blocks
         public List<Block> Chain { get; set; }
+
+        //This is how many zeroes should be in front of hash
+        public int Difficulty { get; set; } = 5;
+
+        //Transactions which are to be mined in next round
         public List<Transaction> PendingTransactions { get; set; }
+
+        //Transactions which are being mined in this round
+        public List<Transaction> MiningTransactions { get; set; }
 
         public BlockChain()
         {
             Chain = new List<Block>
             {
+                //Genesis Block
                 new Block("",new List<Transaction>(),Difficulty)
             };
             PendingTransactions = new List<Transaction>();
+            MiningTransactions = new List<Transaction>();
         }
 
         public Block GetLatestBlock()
@@ -26,30 +36,31 @@ namespace SupplyBlockChainApp
             return Chain[Chain.Count - 1];
         }
 
-        public async Task MineTransactions()
+        //Adds mined block to chain
+        public void AddBlock(Block MinedBlock)
         {
-            Block newBlock = new Block(GetLatestBlock().CurrentHash, PendingTransactions, Difficulty);
-            await newBlock.MineBlock(Difficulty);
-            Chain.Add(newBlock);
-            PendingTransactions = new List<Transaction>();
+            Chain.Add(MinedBlock);
+            MiningTransactions = new List<Transaction>();
         }
 
+        //Creates a new transaction
         public void CreateTransaction(Transaction transaction)
         {
             PendingTransactions.Add(transaction);
         }
 
+        //Checks if blockchain is valid or not
         public bool IsChainValid()
         {
             for (int i = 1; i < Chain.Count; i++)
             {
                 var currentBlock = Chain[i];
                 var previousBlock = Chain[i - 1];
-                if(currentBlock.CurrentHash != CalculteHashOfBlock(currentBlock))
+                if (currentBlock.CurrentHash != CalculteHashOfBlock(currentBlock))
                 {
                     return false;
                 }
-                if(currentBlock.PreviousHash != previousBlock.CurrentHash)
+                if (currentBlock.PreviousHash != previousBlock.CurrentHash)
                 {
                     return false;
                 }
@@ -57,38 +68,11 @@ namespace SupplyBlockChainApp
             return true;
         }
 
-        //public void GetProductTransactionsDetails(string productID)
-        //{
-        //    Console.WriteLine();
-        //    Console.WriteLine("Transactions on Product ID : " + productID);
-
-        //    double processingCost = 0;
-
-        //    foreach (var block in this.Chain)
-        //    {
-        //        foreach (var transaction in block.Transactions)
-        //        {
-        //            if (transaction.ProductID == productID)
-        //            {
-        //                Console.WriteLine("\t Transaction Time : " + transaction.TransactionTimeStamp);
-        //                Console.WriteLine("\t Work Done : " + transaction.ProcessDone);
-        //                Console.WriteLine("\t Done By: " + transaction.ProcessDoneBy);
-        //                Console.WriteLine("\t Processing Cost: " + transaction.CostOfProcess);
-        //                Console.WriteLine();
-        //                processingCost += transaction.CostOfProcess;
-        //            }
-        //        }
-        //    }
-
-        //    Console.WriteLine("\tTotal Processing Cost Till Now : " + processingCost);
-        //    Console.WriteLine();
-        //    Console.WriteLine();
-        //}
-
+        //Calculates hash of a block
         private string CalculteHashOfBlock(Block block)
         {
             var transactionString = String.Empty;
-            foreach(var item in block.Transactions)
+            foreach (var item in block.Transactions)
             {
                 transactionString += item.ToString();
             }

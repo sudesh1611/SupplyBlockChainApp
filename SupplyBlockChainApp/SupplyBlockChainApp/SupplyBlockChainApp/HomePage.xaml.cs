@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,24 @@ namespace SupplyBlockChainApp
 		public HomePage ()
 		{
 			InitializeComponent ();
+            var AccessRights = JsonConvert.DeserializeObject<List<string>>(Application.Current.Properties["AccessRights"].ToString());
+            if(!AccessRights.Contains("Admin"))
+            {
+                MineTransactionsLabel.IsVisible = false;
+                MineTransactionButton.IsVisible = false;
+
+                if(!AccessRights.Contains("CreateTransaction"))
+                {
+                    CreateTransactionLabel.IsVisible = false;
+                    CreateTransactionButton.IsVisible = false;
+                }
+                if(!AccessRights.Contains("CreateAccount"))
+                {
+                    CreateAccountLabel.IsVisible = false;
+                    CreateAccountButton.IsVisible = false;
+                }
+            }
+            
 		}
 
         private async void ViewDetailsButton_Clicked(object sender, EventArgs e)
@@ -29,12 +48,12 @@ namespace SupplyBlockChainApp
 
         private async void MineTransactionButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new MineTransaction(), true);
+            await Navigation.PushAsync(new FullBlockChain(), true);
         }
 
         private async void CreateAccountButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new CreateAccount(), true);
+            await Navigation.PushAsync(new MineTransaction(), true);
         }
 
         private async void LogOutButton_Clicked(object sender, EventArgs e)

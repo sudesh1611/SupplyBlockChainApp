@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing.Net.Mobile.Forms;
@@ -60,8 +60,33 @@ namespace SupplyBlockChainApp
                 result.Append(hash[i].ToString("X2"));
             }
             string ProductID = result.ToString();
+            Location location = new Location();
+            try
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.Medium);
+                location = await Geolocation.GetLocationAsync(request);
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                await DisplayAlert("Error", "Device doesn't support gps location", "Okay");
+                LoadingOverlay.IsVisible = false;
+                return;
+            }
+            catch (PermissionException pEx)
+            {
+                await DisplayAlert("Error", "Give Location Access to application", "Okay");
+                LoadingOverlay.IsVisible = false;
+                return;
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", "Can't Get Location", "Okay");
+                LoadingOverlay.IsVisible = false;
+                return;
+            }
 
-            Transaction newTransaction = new Transaction(ProductID, ProcessDone, ProcessDoneBy, ProcessCost);
+
+            Transaction newTransaction = new Transaction(ProductID, ProcessDone, ProcessDoneBy, location.Latitude.ToString(), location.Longitude.ToString(), ProcessCost);
 
             await Task.Run(async () =>
             {
@@ -102,7 +127,7 @@ namespace SupplyBlockChainApp
                                     ContentView QrResult = new ContentView();
                                     QrResult.Content = barcode;
                                     MainLayout.IsVisible = false;
-                                    MainLabel.Text = "Product's QrCode";
+                                    MainLabel.Text = ProductNameEntry.Text + " - "+ ProductTypeEntry.Text;
                                     MainScrollView.Content = QrResult;
                                     MainScrollView.IsVisible = true;
                                     LoadingOverlay.IsVisible = false;
@@ -142,5 +167,25 @@ namespace SupplyBlockChainApp
         {
             await Navigation.PopAsync(true);
         }
+
+        private void ProductNameEntry_Completed(object sender, EventArgs e)
+        {
+            ProductTypeEntry.Focus();
+        }
+
+        private void ProductTypeEntry_Completed(object sender, EventArgs e)
+        {
+            ProcessDoneEditor.Focus();
+        }
+
+        private void ProductCostEntry_Completed(object sender, EventArgs e)
+        {
+            CreateProductButton_Clicked(null, null);
+        }
+
+        private void ProcessDoneEditor_Completed(object sender, EventArgs e)
+        {
+        }
+
     }
 }

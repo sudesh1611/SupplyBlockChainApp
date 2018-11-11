@@ -9,7 +9,7 @@
              >
 
     <Frame CornerRadius="15" Margin="10,10,10,15" HasShadow="True">
-        <Grid HorizontalOptions="CenterAndExpand" Margin="10,10,10,10">
+        <Grid HorizontalOptions="CenterAndExpand" Margin="5,10,5,10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
@@ -19,9 +19,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackLayout Orientation="Vertical" Spacing="0" Grid.Row="0" Grid.Column="0" VerticalOptions="CenterAndExpand">
-                <StackLayout Orientation="Horizontal" Spacing="5" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                    <Image Source="Stalker.png" HeightRequest="60"/>
-                    <Label Text="Stalker" TextColor="#1C405B" FontSize="55"  FontFamily="RobotoSlab-Bold.ttf#Roboto Slab"/>
+                <StackLayout Orientation="Vertical" Spacing="5" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TranslationY="10">
+                    <Label Text="Supply BlockChain" TextColor="#1C405B" FontSize="32"  FontFamily="RobotoSlab-Bold.ttf#Roboto Slab"/>
+                    <Image Source="Stalker.png" HeightRequest="50"/>
                 </StackLayout>
             </StackLayout>
             <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Spacing="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">

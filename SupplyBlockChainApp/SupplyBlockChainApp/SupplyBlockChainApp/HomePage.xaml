@@ -33,8 +33,8 @@
                         <Button WidthRequest="250" CornerRadius="25" FontSize="15" Text="Create Transaction" BackgroundColor="#1C405B" TextColor="#FFFFFF" FontFamily="RobotoSlab-Bold.ttf#Roboto Slab" x:Name="CreateTransactionButton" Clicked="CreateTransactionButton_Clicked" TranslationY="5"/>
 
                         <Label Text="New user?" TextColor="Transparent" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
-                        <Label Text="Mine Transactions" TextColor="#1C405B" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5" x:Name="MineTransactionsLabel"/>
-                        <Button WidthRequest="250" CornerRadius="25" FontSize="15" Text="Mine Transaction" BackgroundColor="#1C405B" TextColor="#FFFFFF" FontFamily="RobotoSlab-Bold.ttf#Roboto Slab" x:Name="MineTransactionButton" Clicked="MineTransactionButton_Clicked" TranslationY="5"/>
+                        <Label Text="View Full Supply BlockChain" TextColor="#1C405B" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5" x:Name="MineTransactionsLabel"/>
+                        <Button WidthRequest="250" CornerRadius="25" FontSize="15" Text="View BlockChain" BackgroundColor="#1C405B" TextColor="#FFFFFF" FontFamily="RobotoSlab-Bold.ttf#Roboto Slab" x:Name="MineTransactionButton" Clicked="MineTransactionButton_Clicked" TranslationY="5"/>
 
                         <Label Text="New user?" TextColor="Transparent" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
                         <Label Text="Create Account" TextColor="#1C405B" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5" x:Name="CreateAccountLabel"/>
@@ -45,7 +45,7 @@
                         <Button WidthRequest="250" CornerRadius="25" FontSize="15" Text="Log Out" BackgroundColor="#1C405B" TextColor="#FFFFFF" FontFamily="RobotoSlab-Bold.ttf#Roboto Slab" x:Name="LogOutButton" Clicked="LogOutButton_Clicked" TranslationY="5"/>
 
                     </StackLayout>
-                    <StackLayout Grid.Row="2" Grid.Column="0" Orientation="Vertical" Spacing="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <StackLayout Grid.Row="2" Grid.Column="0" Orientation="Vertical" Spacing="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False">
                         <Button BorderColor="#1C405B" BorderWidth="1"  WidthRequest="100" CornerRadius="25" FontSize="15" Text="&lt;"  BackgroundColor="#FFFFFF" TextColor="#1C405B" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" x:Name="BackButton" IsEnabled="True" Clicked="BackButton_Clicked"/>
                     </StackLayout>
                 </Grid>

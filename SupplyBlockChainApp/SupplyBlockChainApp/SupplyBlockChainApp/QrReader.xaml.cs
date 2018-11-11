@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing.Net.Mobile.Forms;
@@ -25,6 +25,7 @@ namespace SupplyBlockChainApp
         private async void ScanQrCodeButton_Clicked(object sender, EventArgs e)
         {
             var ScannerPage = new ZXingScannerPage();
+            ScannerPage.Title = "Scan QrCode";
             if (!Application.Current.Properties.ContainsKey("ScannedProductID"))
             {
                 Application.Current.Properties.Add("ScannedProductID", string.Empty);
@@ -72,12 +73,14 @@ namespace SupplyBlockChainApp
                                                         {
                                                             Device.BeginInvokeOnMainThread(() =>
                                                             {
-                                                                BlockChain SupplyBlockChain = JsonConvert.DeserializeObject<BlockChain>(myContent2);
+                                                                BlockChain SupplyBlockChain = new BlockChain();
+                                                                SupplyBlockChain.Chain = JsonConvert.DeserializeObject<List<Block>>(myContent2);
 
                                                                 StackLayout newStackLayout = new StackLayout()
                                                                 {
                                                                     VerticalOptions = LayoutOptions.StartAndExpand,
                                                                     HorizontalOptions = LayoutOptions.StartAndExpand,
+                                                                    BackgroundColor=Color.Transparent
                                                                 };
 
                                                                 double TotalCost = 0;
@@ -92,34 +95,45 @@ namespace SupplyBlockChainApp
                                                                             {
                                                                                 Text = "Transaction Time : " + Transaction.TransactionTimeStamp,
                                                                                 FontAttributes = FontAttributes.Bold,
-                                                                                FontSize = 14,
-                                                                                TextColor = Color.Black
+                                                                                FontSize = 15,
+                                                                                TextColor = Color.FromHex("#1C405B")
                                                                             };
                                                                             Label ProcessDone = new Label()
                                                                             {
                                                                                 Text = "Process Done : " + Transaction.ProcessDone,
-                                                                                FontAttributes = FontAttributes.Italic,
                                                                                 FontSize = 13,
-                                                                                TextColor = Color.Gray
+                                                                                TextColor = Color.FromHex("#1C405B")
                                                                             };
                                                                             Label ProcessDoneBy = new Label()
                                                                             {
                                                                                 Text = "Process Done By: " + Transaction.ProcessDoneBy,
-                                                                                FontAttributes = FontAttributes.Italic,
                                                                                 FontSize = 13,
-                                                                                TextColor = Color.Gray
+                                                                                TextColor = Color.FromHex("#1C405B")
                                                                             };
                                                                             Label ProcessCost = new Label()
                                                                             {
                                                                                 Text = "Process Cost : " + Transaction.CostOfProcess,
-                                                                                FontAttributes = FontAttributes.Italic,
                                                                                 FontSize = 13,
-                                                                                TextColor = Color.Gray
+                                                                                TextColor = Color.FromHex("#1C405B")
                                                                             };
+                                                                            Button LocationButton = new Button()
+                                                                            {
+                                                                                Text = "Location : "+Transaction.Latitude+", "+Transaction.Longitude,
+                                                                                FontSize = 12,
+                                                                                BackgroundColor = Color.FromHex("#111C405B"),
+                                                                                TextColor = Color.FromHex("#1C405B"),
+                                                                                StyleId = Transaction.Latitude + ";" + Transaction.Longitude,
+                                                                                VerticalOptions=LayoutOptions.CenterAndExpand,
+                                                                                HorizontalOptions=LayoutOptions.CenterAndExpand,
+                                                                                Margin=new Thickness(0,0,0,20),
+                                                                                CornerRadius=30
+                                                                            };
+                                                                            LocationButton.Clicked += LocationButton_Clicked;
                                                                             newStackLayout.Children.Add(TransactionTime);
                                                                             newStackLayout.Children.Add(ProcessDone);
                                                                             newStackLayout.Children.Add(ProcessDoneBy);
                                                                             newStackLayout.Children.Add(ProcessCost);
+                                                                            newStackLayout.Children.Add(LocationButton);
                                                                             TotalCost += Transaction.CostOfProcess;
                                                                         }
                                                                     }
@@ -129,7 +143,7 @@ namespace SupplyBlockChainApp
                                                                     Text = "Total Cost Till Now : " + TotalCost.ToString(),
                                                                     FontAttributes = FontAttributes.Bold,
                                                                     FontSize = 15,
-                                                                    TextColor = Color.CornflowerBlue
+                                                                    TextColor = Color.FromHex("#1C405B")
                                                                 };
                                                                 newStackLayout.Children.Add(TotalCostLabel);
                                                                 MainLabel.Text = "Transaction Details";
@@ -147,6 +161,8 @@ namespace SupplyBlockChainApp
                                                         {
                                                             var Message = "Server Is Down. Try Again After Some Time";
                                                             DisplayAlert("Error", Message, "OK");
+                                                            ScanQrCodeButton.IsVisible = true;
+                                                            MainLayout.IsVisible = true;
                                                             LoadingOverlay.IsVisible = false;
                                                             return;
                                                         });
@@ -159,6 +175,8 @@ namespace SupplyBlockChainApp
                                                     {
                                                         var Message = "Check Your Internet Connection and Try Again";
                                                         DisplayAlert("Error", Message, "OK");
+                                                        ScanQrCodeButton.IsVisible = true;
+                                                        MainLayout.IsVisible = true;
                                                         LoadingOverlay.IsVisible = false;
                                                         return;
                                                     });
@@ -168,16 +186,19 @@ namespace SupplyBlockChainApp
                                     }
                                     else
                                     {
-                                        Label label = new Label()
+                                        Device.BeginInvokeOnMainThread(() =>
                                         {
-                                            Text = "Product Is not present in the system",
-                                            TextColor = Color.Red
-                                        };
-                                        MainLayout.Children.Add(label);
-                                        MainScrollView.IsVisible = false;
-                                        MainLayout.IsVisible = true;
-                                        LoadingOverlay.IsVisible = false;
-                                        return;
+                                            Label label = new Label()
+                                            {
+                                                Text = "Product Is not present in the system",
+                                                TextColor = Color.Red
+                                            };
+                                            MainLayout.Children.Add(label);
+                                            MainScrollView.IsVisible = false;
+                                            MainLayout.IsVisible = true;
+                                            LoadingOverlay.IsVisible = false;
+                                            return;
+                                        });
                                     }
 
 
@@ -188,18 +209,22 @@ namespace SupplyBlockChainApp
                                     {
                                         var Message = "Server Is Down. Try Again After Some Time";
                                         DisplayAlert("Error", Message, "OK");
+                                        ScanQrCodeButton.IsVisible = true;
+                                        MainLayout.IsVisible = true;
                                         LoadingOverlay.IsVisible = false;
                                         return;
                                     });
                                 }
                             }
-                            catch (Exception)
+                            catch (Exception ex)
                             {
 
                                 Device.BeginInvokeOnMainThread(() =>
                                 {
                                     var Message = "Check Your Internet Connection and Try Again";
                                     DisplayAlert("Error", Message, "OK");
+                                    ScanQrCodeButton.IsVisible = true;
+                                    MainLayout.IsVisible = true;
                                     LoadingOverlay.IsVisible = false;
                                     return;
                                 });
@@ -211,6 +236,17 @@ namespace SupplyBlockChainApp
                 });
             };
             await Navigation.PushAsync(ScannerPage);
+        }
+
+        private async void LocationButton_Clicked(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            var tempString = button.StyleId.Split(';');
+            double.TryParse(tempString[0], out double Latitude);
+            double.TryParse(tempString[1], out double Longitude);
+            var location = new Location(Latitude, Longitude);
+            var options = new MapsLaunchOptions { Name = "Transaction Location" };
+            await Maps.OpenAsync(location, options);
         }
 
         private async void BackButton_Clicked(object sender, EventArgs e)

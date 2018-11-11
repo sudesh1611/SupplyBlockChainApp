@@ -1,12 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Create Account"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="SupplyBlockChainApp.MineTransaction">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <AbsoluteLayout>
+            <Grid HorizontalOptions="CenterAndExpand" Margin="5,5,5,10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Orientation="Vertical" Spacing="0" Grid.Row="0" Grid.Column="0" VerticalOptions="CenterAndExpand">
+                    <StackLayout Orientation="Vertical" Spacing="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Label Text="Create Account" TextColor="#1C405B" FontSize="25"  FontFamily="RobotoSlab-Bold.ttf#Roboto Slab" x:Name="MainLabel"/>
+                    </StackLayout>
+                </StackLayout>
+                <ScrollView Grid.Row="1" Grid.Column="0" IsVisible="False" x:Name="MainScrollView">
+
+                </ScrollView>
+                <ScrollView Grid.Row="1" Grid.Column="0" x:Name="MainLayout">
+                    <StackLayout Orientation="Vertical" Spacing="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Label Text="Full Name" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
+                        <Entry WidthRequest="250" TextColor="#1C405B" PlaceholderColor="LightGray" x:Name="FullNameEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Text" MaxLength="20" ReturnType="Next" Completed="FullNameEntry_Completed"/>
+
+                        <Label Text="User Name" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
+                        <Entry WidthRequest="250" TextColor="#1C405B" PlaceholderColor="LightGray" x:Name="UserNameEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Text" MaxLength="12" ReturnType="Next" Completed="UserNameEntry_Completed"/>
+
+                        <Label Text="Email ID" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
+                        <Entry WidthRequest="250" TextColor="#1C405B" PlaceholderColor="LightGray" x:Name="EmailIDEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Email" MaxLength="30" ReturnType="Next" Completed="EmailIDEntry_Completed"/>
+
+                        <Label Text="Password" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
+                        <Entry WidthRequest="250" TextColor="#1C405B" PlaceholderColor="LightGray" x:Name="PasswordEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Plain" MaxLength="10" ReturnType="Next" Completed="PasswordEntry_Completed"/>
+
+                        <Label Text="Confirm Password" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
+                        <Entry WidthRequest="250" TextColor="#1C405B" PlaceholderColor="LightGray" x:Name="ConfirmPasswordEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Plain" MaxLength="10" ReturnType="Next" Completed="ConfirmPasswordEntry_Completed"/>
+
+                        <Label Text="Access Rights" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
+                        <controls:CheckBox x:Name="AdminCheck" DefaultText="Admin" WidthRequest="250" TextColor="#1C405B" Margin="0,0,0,3"/>
+                        <controls:CheckBox x:Name="CreateAccountCheck" DefaultText="Create Account" WidthRequest="250" TextColor="#1C405B" Margin="0,0,0,3"/>
+                        <controls:CheckBox x:Name="CreateTransactionCheck" DefaultText="Create Transaction" WidthRequest="250" TextColor="#1C405B" Margin="0,0,0,10"/>
+                    </StackLayout>
+                </ScrollView>
+                
+                <StackLayout Grid.Row="2" Grid.Column="0" Orientation="Vertical" Spacing="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Button  WidthRequest="150" CornerRadius="25" FontSize="13" Text="Create Account"  BackgroundColor="#1C405B" TextColor="#FFFFFF" FontFamily="RobotoSlab-Bold.ttf#Roboto Slab" x:Name="CreateAccountButton" IsEnabled="True" Clicked="StartMiningButton_Clicked"/>
+                    <Button BorderColor="#1C405B" BorderWidth="1"  WidthRequest="100" CornerRadius="25" FontSize="15" Text="&lt;"  BackgroundColor="#FFFFFF" TextColor="#1C405B" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" x:Name="BackButton" IsEnabled="True" Clicked="BackButton_Clicked" IsVisible="False"/>
+                </StackLayout>
+            </Grid>
+            <ContentView x:Name="LoadingOverlay"
+                 AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                 AbsoluteLayout.LayoutFlags="All"
+                 IsVisible="False"
+                 BackgroundColor="#FFFFFF">
+                <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <ActivityIndicator  Scale="2" Color="#1C405B" IsRunning="True" x:Name="LoadingIndicator"/>
+                    <Label Text="Creating Account..." TranslationY="25" TextColor="#1C405B" x:Name="LoadingIndicatorText" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" FontSize="20"/>
+                </StackLayout>
+            </ContentView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

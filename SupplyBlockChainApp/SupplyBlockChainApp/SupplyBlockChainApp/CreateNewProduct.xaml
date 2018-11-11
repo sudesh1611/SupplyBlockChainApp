@@ -6,7 +6,7 @@
              x:Class="SupplyBlockChainApp.CreateNewProduct">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <Grid HorizontalOptions="CenterAndExpand" Margin="10,10,10,15" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <Grid HorizontalOptions="CenterAndExpand" Margin="5,5,5,10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="6*"/>
@@ -21,20 +21,20 @@
                     </StackLayout>
                 </StackLayout>
                 <ScrollView Grid.Row="1" Grid.Column="0" IsVisible="False" x:Name="MainScrollView">
-
+                    
                 </ScrollView>
                 <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Vertical" Spacing="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" x:Name="MainLayout">
-                    <Label Text="Product Name" TextColor="LightGray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
-                    <Entry WidthRequest="250" Placeholder="Product Name" TextColor="#1C405B" PlaceholderColor="LightGray" x:Name="ProductNameEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Text" MaxLength="20" ReturnType="Next"/>
+                    <Label Text="Product Name" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
+                    <Entry WidthRequest="250" TextColor="#1C405B" PlaceholderColor="LightGray" x:Name="ProductNameEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Text" MaxLength="20" ReturnType="Next" Completed="ProductNameEntry_Completed"/>
 
-                    <Label Text="Product Type" TextColor="LightGray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
-                    <Entry WidthRequest="250" Placeholder="Product Type" TextColor="#1C405B" PlaceholderColor="LightGray" x:Name="ProductTypeEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Text" MaxLength="20" ReturnType="Next"/>
+                    <Label Text="Product Type" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
+                    <Entry WidthRequest="250" TextColor="#1C405B" PlaceholderColor="LightGray" x:Name="ProductTypeEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Text" MaxLength="20" ReturnType="Next" Completed="ProductTypeEntry_Completed"/>
 
-                    <Label Text="What is done on product?" TextColor="LightGray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
-                    <Editor WidthRequest="250" AutoSize="TextChanges" MaxLength="260"  TextColor="#1C405B" x:Name="ProcessDoneEditor" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Text"/>
+                    <Label Text="What is done on product?" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
+                    <Editor WidthRequest="250" AutoSize="TextChanges" MaxLength="260"  TextColor="#1C405B" x:Name="ProcessDoneEditor" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Text" Completed="ProcessDoneEditor_Completed"/>
 
-                    <Label Text="Processing cost of Product( if any)" TextColor="LightGray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
-                    <Entry WidthRequest="250" Keyboard="Numeric" PlaceholderColor="LightGray" Text="0" x:Name="ProductCostEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" MaxLength="20" ReturnType="Go"/>
+                    <Label Text="Processing cost of Product( if any)" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
+                    <Entry WidthRequest="250" Keyboard="Numeric" PlaceholderColor="LightGray" Text="0" x:Name="ProductCostEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" MaxLength="20" ReturnType="Go" Completed="ProductCostEntry_Completed"/>
 
                     <Button  WidthRequest="150" CornerRadius="25" FontSize="13" Text="Create Product"  BackgroundColor="#1C405B" TextColor="#FFFFFF" FontFamily="RobotoSlab-Bold.ttf#Roboto Slab" x:Name="CreateProductButton" IsEnabled="True" Clicked="CreateProductButton_Clicked"/>
                 </StackLayout>

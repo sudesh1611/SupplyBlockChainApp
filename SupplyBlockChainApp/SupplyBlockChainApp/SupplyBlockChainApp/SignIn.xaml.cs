@@ -220,6 +220,7 @@ namespace SupplyBlockChainApp
             MainFrame.IsVisible = false;
             LoadingOverlay.IsVisible = true;
             LoadingIndicatorText.Text = "Checking Credentials";
+            Username = Username.ToLower();
             await Task.Run(async () =>
             {
                 string url = "http://supplyblockchain.sudeshkumar.me/UserAccount/LogIn";

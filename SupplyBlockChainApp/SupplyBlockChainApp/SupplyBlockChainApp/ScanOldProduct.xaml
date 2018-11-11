@@ -22,10 +22,14 @@
                 </StackLayout>
                 <ScrollView Grid.Row="1" Grid.Column="0" IsVisible="False" x:Name="MainScrollView" Padding="10">
                     <StackLayout  Orientation="Vertical" Spacing="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" x:Name="ScrollViewMainLayout">
-                        <Label Text="What process is done on product?" TextColor="LightGray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
+
+                        <Label Text="Product ID" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
+                        <Entry WidthRequest="250" MaxLength="260"  TextColor="#1C405B" x:Name="ProductIDEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Text" IsEnabled="False"/>
+
+                        <Label Text="What process is done on product?" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
                         <Editor WidthRequest="250" AutoSize="TextChanges" MaxLength="260"  TextColor="#1C405B" x:Name="ProcessDoneEditor" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Text"/>
 
-                        <Label Text="Cost of process done( if any)" TextColor="LightGray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
+                        <Label Text="Cost of process done( if any)" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
                         <Entry WidthRequest="250" Keyboard="Numeric" PlaceholderColor="LightGray" Text="0" x:Name="ProductCostEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" MaxLength="20" ReturnType="Go"/>
 
                         <Button  WidthRequest="150" CornerRadius="25" FontSize="13" Text="Create Transaction"  BackgroundColor="#1C405B" TextColor="#FFFFFF" FontFamily="RobotoSlab-Bold.ttf#Roboto Slab" x:Name="CreateTransactionButton" IsEnabled="True" Clicked="CreateTransactionButton_Clicked"/>

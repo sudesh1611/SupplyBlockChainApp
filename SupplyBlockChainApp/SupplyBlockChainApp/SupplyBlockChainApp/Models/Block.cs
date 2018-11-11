@@ -8,22 +8,33 @@ namespace SupplyBlockChainApp
 {
     public class Block
     {
+        //Stores the current hash of the block after mining
         public string CurrentHash { get; set; }
+
+        //Stores the hash of the previous block
         public string PreviousHash { get; set; }
+
+        //This is to get proof of work
         public ulong Nounce { get; set; }
+
+        //This Contains all the transactions that are added to this block
         public List<Transaction> Transactions { get; set; }
+
+        //Time and date when this block is created
         public string BlockAddedTimeStamp { get; set; }
+
 
         public Block(string previousHash, List<Transaction> transactions, int Difficulty)
         {
             CurrentHash = String.Empty;
             PreviousHash = previousHash;
             Transactions = transactions;
-            BlockAddedTimeStamp = DateTime.UtcNow.ToLongTimeString();
+            var now = DateTime.Now;
+            BlockAddedTimeStamp = now.ToLongDateString() + " " + now.ToLongTimeString();
             Nounce = 0;
-            //MineBlock(Difficulty);
         }
 
+        //Mining of block
         public async Task MineBlock(int Difficulty)
         {
             var tempString = String.Empty;
@@ -34,15 +45,17 @@ namespace SupplyBlockChainApp
                     tempString += item.ToString();
                 }
                 CurrentHash = CalculateHash(tempString);
+
+                //Proof of work i.e. first five characters of hash should be 0
                 while (CurrentHash.Substring(0, Difficulty) != new string('0', Difficulty))
                 {
                     Nounce++;
                     CurrentHash = CalculateHash(tempString);
                 }
             });
-            //Console.WriteLine("Block successfully mined : " + CurrentHash);
         }
 
+        //Function to calculate hash of block
         private string CalculateHash(string transactionString)
         {
             SHA256 sha256 = SHA256Managed.Create();
