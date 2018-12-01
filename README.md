@@ -27,10 +27,10 @@ The Xamarin.Forms App aka FrontEnd Module provides interface to perform operatio
 
 ## **BackEnd Module**
 
-The ASP.NET WebApp aka Backend creates and manages the Supply BlockChain. This WebApp also contains one Block Miner and Three Block Verifiers. Every 20 minutes, a new block is mined by the Miner and verified by the three Verifiers. Following are the operations that can be performed by BackEnd Module:
+The ASP.NET WebApp aka Backend creates and manages the Supply BlockChain. This WebApp also contains one Block Miner and Three Block Verifiers. Every 40 minutes, a new block is mined by the Miner and verified by the three Verifiers. Following are the operations that can be performed by BackEnd Module:
 
 - Create product transactions and push them to the pending transaction queue for mining.
-- Mine pending transactions every 20 minutes.
+- Mine pending transactions every 40 minutes.
 - After mining, get block verifed by verifiers and if approved add it to the Supply BlockChain.
 - Along with Main Supply BlockChain, maintain blockChains of verifiers also.
 - Create/Modify User accounts with specified access levels.
@@ -46,7 +46,7 @@ The ASP.NET WebApp aka Backend creates and manages the Supply BlockChain. This W
 
 **Supply BlockChain specifications**
 
-- A new block is mined every 20 minutes.
+- A new block is mined every 40 minutes.
 - For Proof of Work,at present, miner have to mine block such that Hash of that block starts with 5 zeros.
 - The difficulty of mining (i.e number of starting zeros of a block Hash) block can be increased by admin, if required.
 - At present there is one Block Miner and Three Verifiers.
