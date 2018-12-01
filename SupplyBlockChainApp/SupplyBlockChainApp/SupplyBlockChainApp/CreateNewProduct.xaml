@@ -31,7 +31,7 @@
                     <Entry WidthRequest="250" TextColor="#1C405B" PlaceholderColor="LightGray" x:Name="ProductTypeEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Text" MaxLength="20" ReturnType="Next" Completed="ProductTypeEntry_Completed"/>
 
                     <Label Text="What is done on product?" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
-                    <Editor WidthRequest="250" AutoSize="TextChanges" MaxLength="260"  TextColor="#1C405B" x:Name="ProcessDoneEditor" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Text" Completed="ProcessDoneEditor_Completed"/>
+                    <Entry WidthRequest="250" MaxLength="260"  TextColor="#1C405B" x:Name="ProcessDoneEditor" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" Keyboard="Text" Completed="ProcessDoneEditor_Completed"/>
 
                     <Label Text="Processing cost of Product( if any)" TextColor="Gray" FontSize="12"  FontFamily="RobotoSlab-Light.ttf#Roboto Slab" TranslationX="5"/>
                     <Entry WidthRequest="250" Keyboard="Numeric" PlaceholderColor="LightGray" Text="0" x:Name="ProductCostEntry" FontFamily="RobotoSlab-Regular.ttf#Roboto Slab" Margin="0,0,0,10" MaxLength="20" ReturnType="Go" Completed="ProductCostEntry_Completed"/>

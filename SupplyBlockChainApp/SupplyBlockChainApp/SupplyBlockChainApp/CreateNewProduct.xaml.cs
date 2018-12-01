@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SupplyBlockChainApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,11 +88,19 @@ namespace SupplyBlockChainApp
 
 
             Transaction newTransaction = new Transaction(ProductID, ProcessDone, ProcessDoneBy, location.Latitude.ToString(), location.Longitude.ToString(), ProcessCost);
-
+            ProductInfo newProduct = new ProductInfo()
+            {
+                ProductName = ProductName,
+                ProductType = ProductType,
+                CreationDate = JsonConvert.SerializeObject(DateTime.Now),
+                ProductID = ProductID,
+                ProductCreator = 0,
+                ID = 0
+            };
             await Task.Run(async () =>
             {
-                string url = "http://supplyblockchain.sudeshkumar.me/BlockChain/CreateTransaction";
-                HttpContent q1 = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("transaction", JsonConvert.SerializeObject(newTransaction)), new KeyValuePair<string, string>("userName", Application.Current.Properties["UserName"].ToString()), new KeyValuePair<string, string>("password", Application.Current.Properties["Password"].ToString()) });
+                string url = "http://supplyblockchain.sudeshkumar.me/BlockChain/CreateFirstTransaction";
+                HttpContent q1 = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("productInfo", JsonConvert.SerializeObject(newProduct)), new KeyValuePair<string, string>("transaction", JsonConvert.SerializeObject(newTransaction)), new KeyValuePair<string, string>("userName", Application.Current.Properties["UserName"].ToString()), new KeyValuePair<string, string>("password", Application.Current.Properties["Password"].ToString()) });
                 using (var httpClient = new HttpClient())
                 {
                     try
@@ -131,7 +140,7 @@ namespace SupplyBlockChainApp
                                     MainScrollView.Content = QrResult;
                                     MainScrollView.IsVisible = true;
                                     LoadingOverlay.IsVisible = false;
-                                    var Message = "Transaction Added Successfully. Save this QrCode for further Transactions.";
+                                    var Message = "Transaction Added Successfully. Save this QrCode or print from website.";
                                     await DisplayAlert("Success", Message, "OK");
                                     return;
                                 });
@@ -185,6 +194,8 @@ namespace SupplyBlockChainApp
 
         private void ProcessDoneEditor_Completed(object sender, EventArgs e)
         {
+            ProductCostEntry.Text = String.Empty;
+            ProductCostEntry.Focus();
         }
 
     }
