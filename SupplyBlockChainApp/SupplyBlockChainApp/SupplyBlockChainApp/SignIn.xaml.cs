@@ -238,7 +238,7 @@ namespace SupplyBlockChainApp
                             {
                                 Device.BeginInvokeOnMainThread(() =>
                                 {
-                                    var Message = "User Doesn't Exist. Check Username";
+                                    var Message = "Invalid Login Attempt!!!";
                                     DisplayAlert("Error", Message, "OK");
                                     UsernameEntry.Focus();
                                     MainFrame.IsVisible = true;
