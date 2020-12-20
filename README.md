@@ -11,8 +11,6 @@ Backend module creates and manages Supply BlockChain and all types of operations
 
 Frontend module consists of a Mobile App built in Xamarin.Forms which provides the interface to interact with the blockchain at backend in a user-friendly manner. This App consumes APIs exposed by Backend WebApp and performs various operations.
 
-**Download Android Application:** [SupplyBlockChain.apk](https://www.sudeshkumar.me/SupplyBlockChain.apk)
-
 
 ## **FrontEnd Module**
 
@@ -37,7 +35,7 @@ The ASP.NET WebApp aka Backend creates and manages the Supply BlockChain. This W
 - Provide Supply BlockChain to user whenever asked for.
 - Provide interface for user to print QrCode of all products he/she created.
 
-**Visit Backend Website:** <http://supplyblockchain.sudeshkumar.me>
+**More details about backend here:** <https://sudeshkumar.me/SupplyBlockChain.html>
 
 **View BackEnd Source Code:** <https://github.com/sudesh1611/SupplyBlockChain_Backend>
 
@@ -89,10 +87,6 @@ Admin can view Supply BlockChain in raw form by going to View BlockChain.
 
 
 ## **Links**
-
-**Download Android Application:** [SupplyBlockChain.apk](https://www.sudeshkumar.me/SupplyBlockChain.apk)
-
-*Note\*: When for the first time, you give Android Application access to camera, scanner might not open. If this happens, close application and remove it from background also.Then, start application again.*
 
 **View my other projects:** <https://github.com/sudesh1611>
 
